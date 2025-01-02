@@ -1,0 +1,25 @@
+{
+  "name": "yapay_zeka",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "if exist pages rmdir /s /q pages && if exist node_modules rmdir /s /q node_modules && if exist .next rmdir /s /q .next && if exist package-lock.json del package-lock.json",
+    "setup": "npm run clean && npm install"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "next": "14.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@heroicons/react": "^2.0.18",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.0"
+  }
+}
