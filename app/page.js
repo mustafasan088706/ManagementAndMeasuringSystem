@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 import { 
   ArrowRightIcon, BeakerIcon, ChartBarIcon, CpuChipIcon,
   ChatBubbleBottomCenterTextIcon, ShieldCheckIcon,
@@ -149,53 +150,135 @@ export default function Home() {
     }))
   }
 
-  // Form submit handler
-  const handleRegisterSubmit = async (e) => {
-    e.preventDefault()
+  // Toast notification fonksiyonları
+  const showSuccess = (message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
-    // Tüm alanları validate et
+  const showError = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  const showInfo = (message) => {
+    toast.info(message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
+  // Form submit handler güncellendi
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+
+    // Form validasyonu
     const errors = {
       name: validateName(formData.name),
-      email: validateEmail(formData.email.toLowerCase()),
+      email: validateEmail(formData.email),
       password: validatePassword(formData.password),
       passwordConfirm: validatePasswordConfirm(formData.password, formData.passwordConfirm),
-      company: validateCompany(formData.company),
       securityQuestion: validateSecurityQuestion(formData.securityQuestion, formData.securityAnswer),
       terms: !formData.terms ? 'Kullanım şartlarını kabul etmelisiniz' : ''
-    }
+    };
 
-    setFormErrors(errors)
+    setFormErrors(errors);
 
-    // Hata var mı kontrol et
     if (Object.values(errors).some(error => error)) {
-      return
+      showError('Lütfen form hatalarını düzeltin');
+      return;
     }
 
     try {
-      // Form verilerini hazırla
-      const formDataToSubmit = {
-        ...formData,
-        email: formData.email.toLowerCase(),
-        name: formData.name.trim(),
-        company: formData.company?.trim(),
-        securityAnswer: formData.securityAnswer.trim()
+      showInfo('Kayıt işlemi başlatıldı...');
+
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.toLowerCase().trim(),
+          password: formData.password,
+          company: formData.company?.trim(),
+          securityQuestion: formData.securityQuestion,
+          securityAnswer: formData.securityAnswer.trim()
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Kayıt işlemi başarısız');
       }
 
-      // Form başarılı, kayıt işlemini gerçekleştir
-      console.log('Form data:', formDataToSubmit)
-      // API çağrısı burada yapılacak
-      
       // Başarılı kayıt sonrası
-      setIsRegisterOpen(false)
-      // Başarılı kayıt mesajı göster
+      setIsRegisterOpen(false);
+      
+      showSuccess('Kayıt işlemi başarıyla tamamlandı! Giriş yapabilirsiniz.');
+      
+      // Form verilerini temizle
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirm: '',
+        company: '',
+        securityQuestion: '',
+        securityAnswer: '',
+        terms: false
+      });
+
+      // Giriş modalını aç
+      setTimeout(() => {
+        setIsLoginOpen(true);
+      }, 1000);
+
     } catch (error) {
-      console.error('Kayıt hatası:', error)
-      // Hata mesajı göster
+      console.error('Register error:', error);
+      showError(error.message);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-white">
+      {/* ToastContainer eklendi */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+
       {/* Navigation - Responsive iyileştirmeler */}
       <nav className="bg-white/80 backdrop-blur-md fixed w-full z-50 border-b border-gray-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,12 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects() {
-    return []
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        sqlite3: false,
+        'better-sqlite3': false,
+      }
+    }
+    return config
   },
-  // Sayfanın doğru yüklenmesi için ek yapılandırmalar
-  poweredByHeader: false,
-  reactStrictMode: true,
-  swcMinify: true
+  experimental: {
+    serverComponentsExternalPackages: ['better-sqlite3']
+  }
 }
 
 module.exports = nextConfig 

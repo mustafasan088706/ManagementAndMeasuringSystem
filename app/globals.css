@@ -16,4 +16,29 @@ body {
     rgb(var(--background-end-rgb))
   )
   rgb(var(--background-start-rgb));
+}
+
+/* Toast stilleri */
+.Toastify__toast {
+  @apply rounded-lg font-sans;
+}
+
+.Toastify__toast--success {
+  @apply bg-green-500;
+}
+
+.Toastify__toast--error {
+  @apply bg-red-500;
+}
+
+.Toastify__toast--info {
+  @apply bg-blue-500;
+}
+
+.Toastify__progress-bar {
+  @apply h-[3px];
+}
+
+.Toastify__close-button {
+  @apply opacity-70 hover:opacity-100 transition-opacity;
 } 
