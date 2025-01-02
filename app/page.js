@@ -316,12 +316,12 @@ export default function Home() {
               Gelişmiş yönetim ve ölçüm araçlarımızla işletmenizi daha verimli hale getirin.
               Analiz, raporlama ve optimizasyon ile rekabet avantajı elde edin.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="group bg-primary hover:bg-secondary text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold inline-flex items-center justify-center transition-all hover:shadow-xl text-sm md:text-base">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <button className="w-full sm:w-auto group bg-primary hover:bg-secondary text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold inline-flex items-center justify-center transition-all hover:shadow-xl text-sm md:text-base">
                 Ücretsiz Deneyin
                 <ArrowRightIcon className="w-4 h-4 md:w-5 md:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold inline-flex items-center justify-center border-2 border-gray-200 hover:border-primary transition-all text-sm md:text-base">
+              <button className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-800 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold inline-flex items-center justify-center border-2 border-gray-200 hover:border-primary transition-all text-sm md:text-base">
                 <GlobeAltIcon className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                 Demo İzleyin
               </button>
@@ -431,18 +431,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section - Yükseklik ve padding düzenlemesi */}
+      {/* CTA Section - Ortalama düzeltmesi */}
       <section id="contact" className="relative py-20 sm:py-24 lg:py-32 bg-gradient-to-r from-primary to-secondary overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/10"></div>
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 md:mb-8">
-            Yapay Zeka Yolculuğunuza Bugün Başlayın
-          </h2>
-          <p className="text-base md:text-xl text-white/90 mb-8 md:mb-12 max-w-2xl mx-auto">
-            14 gün ücretsiz deneme ve özel demo için hemen iletişime geçin.
-          </p>
-          <form className="max-w-lg mx-auto px-4">
-            <div className="flex flex-col gap-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 md:mb-8">
+              Yapay Zeka Yolculuğunuza Bugün Başlayın
+            </h2>
+            <p className="text-lg md:text-xl text-white/90 mb-8 md:mb-10">
+              14 gün ücretsiz deneme ve özel demo için hemen iletişime geçin.
+            </p>
+            <form className="max-w-md mx-auto space-y-4">
               <input
                 type="text"
                 placeholder="Adınız"
@@ -456,8 +456,8 @@ export default function Home() {
               <button className="w-full bg-white text-primary hover:bg-blue-50 font-bold py-3 md:py-4 px-6 md:px-8 rounded-lg transition-all hover:shadow-xl text-sm md:text-base">
                 Ücretsiz Demo Talep Et
               </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </section>
 
